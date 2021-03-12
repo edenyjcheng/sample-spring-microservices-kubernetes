@@ -1,9 +1,33 @@
 spring:
   applicaton:
     name: admin
+
   cloud:
     kubernetes:
       discovery:
-        all-namespaces: true
         service-labels:
-          spring-boot: true
+          spring-boot: "true"
+      secrets:
+        enable-api: true
+#        enabled: false
+#  boot:
+#    admin:
+#      context-path: /admin
+
+logging:
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} ${LOG_LEVEL_PATTERN:-%5p} %m%n"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS
+      group:
+        liveness:
+          include=livenessProbe,cacheCheck:
+server:
+  forward-headers-strategy: none

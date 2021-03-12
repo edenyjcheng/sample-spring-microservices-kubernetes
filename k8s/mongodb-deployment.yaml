@@ -43,8 +43,10 @@ metadata:
   labels:
     app: mongodb
 spec:
+  type: LoadBalancer
   ports:
   - port: 27017
+    targetPort: 27017
     protocol: TCP
   selector:
     app: mongodb

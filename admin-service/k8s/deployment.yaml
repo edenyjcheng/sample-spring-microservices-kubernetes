@@ -13,7 +13,11 @@ spec:
     spec:
       containers:
       - name: admin
-        image: piomin/admin
+        image: piomin/cloudadminserver
+        imagePullPolicy: Never
+        env:
+            - name: TZ
+              value: America/New_York
         ports:
         - containerPort: 8080
 ---
@@ -24,12 +28,16 @@ metadata:
 data:
   application.yml: |-
     spring:
-     cloud:
-      kubernetes:
-        discovery:
-          all-namespaces: true
-          service-labels:
-            spring-boot: true
+      cloud:
+        kubernetes:
+          enabled: true
+          secrets:
+            enable-api: true
+          discovery:
+            enabled: true
+            all-namespaces: true
+            service-labels:
+              spring-boot: "true"
 ---
 apiVersion: v1
 kind: Service
@@ -40,5 +48,6 @@ spec:
   selector:
     app: admin
   ports:
-  - port: 8080
+  - port: 8088
     targetPort: 8080
+  type: LoadBalancer

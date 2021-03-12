@@ -33,9 +33,12 @@ spec:
       containers:
       - name: employee
         image: piomin/employee
+        imagePullPolicy: Never
         ports:
         - containerPort: 8080
         env:
+        - name: TZ
+          value: America/New_York
         - name: MONGO_DATABASE
           valueFrom:
             configMapKeyRef:
@@ -65,4 +68,5 @@ spec:
     protocol: TCP
   selector:
     app: employee
+#  type: NodePort
   type: ClusterIP

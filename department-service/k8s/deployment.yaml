@@ -32,10 +32,13 @@ spec:
     spec:
       containers:
       - name: department
-        image: piomin/department:1.0
+        image: piomin/department
+        imagePullPolicy: Never
         ports:
         - containerPort: 8080
         env:
+        - name: TZ
+          value: America/New_York
         - name: MONGO_DATABASE
           valueFrom:
             configMapKeyRef:
@@ -65,3 +68,4 @@ spec:
     protocol: TCP
   selector:
     app: department
+#  type: NodePort

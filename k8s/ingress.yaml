@@ -12,6 +12,10 @@ spec:
   - host: microservices.info
     http:
       paths:
+#      - path: /admin
+#        backend:
+#          serviceName: admin
+#          servicePort: 8080
       - path: /employee
         backend:
           serviceName: employee

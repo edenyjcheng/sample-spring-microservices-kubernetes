@@ -4,10 +4,19 @@ spring:
   data:
     mongodb:
       uri: mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@mongodb.default/${MONGO_DATABASE}
-      
+  cloud:
+    kubernetes:
+      discovery:
+        all-namespaces: true
 logging:
-  pattern: 
+  pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss} ${LOG_LEVEL_PATTERN:-%5p} %m%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+  file:
+    path: ./
+    name: "${spring.application.name}.log"
+    max-size: 5MB
+    max-history: 7
 
 management:
   endpoints:
@@ -17,3 +26,8 @@ management:
   endpoint:
     health:
       show-details: ALWAYS
+      group:
+        liveness:
+          include: livenessProbe,cacheCheck
+server:
+  forward-headers-strategy: none

@@ -59,13 +59,13 @@ public class DepartmentAPITest {
     @Test
     void findAllDepartmentsTest() {
         Department[] departments = restTemplate.getForObject("/", Department[].class);
-        Assertions.assertEquals(2, departments.length);
+        Assertions.assertEquals(3, departments.length);
     }
 
     @Test
     void findDepartmentsByOrganizationTest() {
         Department[] departments = restTemplate.getForObject("/organization/1", Department[].class);
-        Assertions.assertEquals(1, departments.length);
+        Assertions.assertEquals(2, departments.length);
     }
 
 }
